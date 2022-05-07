@@ -29,19 +29,24 @@ const uploadCertificate = async ({
 	expiryDate,
 	auth,
 }: UploadCertificateProps): Promise<ResponseMessage> => {
-	// TODO improve return messages
-	if (auth.account) {
-		const data = {
-			age: birthDate,
-			nationality,
-			expirationTime: expiryDate,
-		};
-		const newFile = new File([JSON.stringify(data)], 'metadata.json');
-		const CID = await uploadFile(auth.account.currentProvider, newFile);
-		const result = await starton.createToken(auth.accountAddress, `${REACT_APP_BASE_URI}${CID}`, expiryDate);
-		return { success: true, message: 'Good' };
+	try {
+		// TODO improve return messages
+		if (auth.account) {
+			const data = {
+				age: birthDate,
+				nationality,
+				expirationTime: expiryDate,
+			};
+			const newFile = new File([JSON.stringify(data)], 'metadata.json');
+			const CID = await uploadFile(auth.account.currentProvider, newFile);
+			const result = await starton.createToken(auth.accountAddress, `${REACT_APP_BASE_URI}${CID}`, expiryDate);
+			return { success: true, message: 'Good' };
+		}
+		return { success: false, message: 'Bad account' };
+	} catch (error) {
+		console.error(error);
+		return { success: false, message: 'An error occured' };
 	}
-	return { success: false, message: 'Bad account' };
 };
 
 export default uploadCertificate;

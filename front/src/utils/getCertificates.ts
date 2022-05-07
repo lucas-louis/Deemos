@@ -15,13 +15,17 @@ const getCertificates = async ({
 	certificates,
 	setCertificates,
 }: GetCertificatesProps): Promise<ResponseMessage> => {
-	const tokens = await starton.getAllTokens(address);
+	try {
+		const tokens = await starton.getAllTokens(address);
 
-	console.log('tokens', tokens);
-	tokens.map(async (id: number) => {
-		certificates.push(await starton.getTokenInfo(id));
-	});
-	setCertificates(certificates);
-	return { success: true, message: 'success' };
+		tokens.map(async (id: number) => {
+			certificates.push(await starton.getTokenInfo(id));
+		});
+		setCertificates(certificates);
+		return { success: true, message: 'Certificate loaded' };
+	} catch (error) {
+		console.error(error);
+		return { success: false, message: 'An error occured' };
+	}
 };
 export default getCertificates;

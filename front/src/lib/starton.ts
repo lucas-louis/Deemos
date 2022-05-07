@@ -10,22 +10,21 @@ const customAxios = axios.create({
 	baseURL: REACT_APP_STARTON_BASE_URL,
 });
 
-const req = (func: string, param: any[], address: string = '') => {
-	console.log(REACT_APP_STARTON_CONTRACT_URI);
-
-  const modifyingFunctions = ['createToken', 'unvalidToken']
-  if (!(func in modifyingFunctions)) {
-    return customAxios.post(REACT_APP_STARTON_CONTRACT_URI + '/read', {
-	  	functionName: func,
-		  params: [...param],
-	  });
-  }
-  return customAxios.post(REACT_APP_STARTON_CONTRACT_URI + '/call', {
-    functionName: func,
-    signerWallet: address,
-    speed: 'low',
-    params: [...param],
-  });
+const req = (func: string, param: any[], address = '') => {
+	console.log(func);
+	const modifyingFunctions = ['createToken', 'unvalidToken'];
+	if (!modifyingFunctions.find((f) => f === func)) {
+		return customAxios.post(`${REACT_APP_STARTON_CONTRACT_URI}/read`, {
+			functionName: func,
+			params: [...param],
+		});
+	}
+	return customAxios.post(`${REACT_APP_STARTON_CONTRACT_URI}/call`, {
+		functionName: func,
+		signerWallet: '0xc613066dB8085B44d7212C0c3389c747Ea71b325',
+		speed: 'low',
+		params: [...param],
+	});
 };
 
 const uriToCid = (uri: string): string => {
@@ -47,17 +46,19 @@ const starton = {
 		const description = 'certifies your date of birth and nationality';
 		const symbol = 'DEE';
 
-		const res: AxiosResponse = await req('createToken',
-      [
-			  address,
-			  name,
-			  description,
-			  tokenUri,
-			  symbol,
-			  Date.parse(expiration),
-		  ],
-      address
-    );
+		console.log(Date.parse(expiration));
+		const res: AxiosResponse = await req(
+			'createToken',
+			[
+				'0xc613066dB8085B44d7212C0c3389c747Ea71b325',
+				name,
+				description,
+				tokenUri,
+				symbol,
+				Date.parse(expiration).toString(10),
+			],
+			address,
+		);
 		pinCid(uriToCid(tokenUri));
 		return res.data.response;
 	},
@@ -83,7 +84,7 @@ const starton = {
 	},
 
 	getTokenInfo: async (id: number): Promise<Token> => {
-		const res: AxiosResponse = await req('getTokenInfo', [id]);
+		const res: AxiosResponse = await req('getTokenInfos', [id]);
 		return res.data.response as Token;
 	},
 

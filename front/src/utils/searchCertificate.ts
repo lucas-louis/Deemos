@@ -15,10 +15,15 @@ const searchCertificate = async ({
 	tokenID,
 	setResults,
 }: SearchCertificateProps): Promise<ResponseMessage> => {
-	if (await starton.hasValid(address, parseInt(tokenID, 10))) {
-		setResults(await starton.getTokenInfo(parseInt(tokenID, 10)));
-		return { success: true, message: 'Certificate found' };
+	try {
+		if (await starton.hasValid(address, parseInt(tokenID, 10))) {
+			setResults(await starton.getTokenInfo(parseInt(tokenID, 10)));
+			return { success: true, message: 'Certificate found' };
+		}
+		return { success: false, message: 'Certificate not found' };
+	} catch (error) {
+		console.error(error);
+		return { success: false, message: 'An error occured' };
 	}
-	return { success: false, message: 'Certificate not found' };
 };
 export default searchCertificate;

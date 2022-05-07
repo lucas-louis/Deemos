@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { VStack, Text, Button, HStack, Divider, useDisclosure } from '@chakra-ui/react';
+import { VStack, Text, Button, HStack, Divider, useDisclosure, useToast } from '@chakra-ui/react';
 
-import { Token } from 'types/types';
+import { ResponseMessage, Token } from 'types/types';
 
 import TokenCard from 'components/TokenCard';
 import AddCertificateModal from 'components/AddCertificateModal';
@@ -21,12 +21,22 @@ const DashboardView = (): JSX.Element => {
 		onOpen: onOpenCertificateModal,
 	} = useDisclosure();
 	const address = useAuthContext().accountAddress;
+	const toast = useToast();
 
 	useEffect(() => {
 		(async () => {
-			await getCertificates({ address, certificates, setCertificates });
+			printToast(await getCertificates({ address, certificates, setCertificates }));
 		})();
 	}, []);
+
+	const printToast = (responseMessage: ResponseMessage): void => {
+		toast({
+			title: responseMessage.message,
+			status: responseMessage.success ? 'success' : 'error',
+			duration: 2000,
+			isClosable: true,
+		});
+	};
 
 	// TODO improve "no certificates" message
 	const DisplayTokenCards = ({ tokens }: DisplayTokenCardsProps): JSX.Element => {

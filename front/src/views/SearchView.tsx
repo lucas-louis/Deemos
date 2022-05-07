@@ -27,12 +27,14 @@ const SearchView = (): JSX.Element => {
 			<VStack spacing="32px" bg="rgba(0, 0, 255, 0.1)" p="32px" borderRadius="32px">
 				<VStack spacing="16px">
 					<Input
+						color="#FFEBEB"
 						placeholder="Address of the account"
 						onChange={(e) => {
 							setAddress(e.target.value);
 						}}
 					/>
 					<Input
+						color="#FFEBEB"
 						placeholder="Token ID"
 						onChange={(e) => {
 							setTokenID(e.target.value);
