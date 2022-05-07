@@ -1,5 +1,5 @@
 import Auth from 'lib/auth';
-import deemos from 'lib/starton';
+import starton from 'lib/starton';
 
 import uploadFile from 'utils/uploadFile';
 
@@ -38,7 +38,7 @@ const uploadCertificate = async ({
 		};
 		const newFile = new File([JSON.stringify(data)], 'metadata.json');
 		const CID = await uploadFile(auth.account.currentProvider, newFile);
-		const result = await deemos.createToken(auth.accountAddress, `${REACT_APP_BASE_URI}${CID}`, expiryDate);
+		const result = await starton.createToken(auth.accountAddress, `${REACT_APP_BASE_URI}${CID}`, expiryDate);
 		return { success: true, message: 'Good' };
 	}
 	return { success: false, message: 'Bad account' };

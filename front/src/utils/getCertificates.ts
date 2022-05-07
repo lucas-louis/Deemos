@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ResponseMessage, Token } from 'types/types';
 
-import deemos from 'lib/starton';
+import starton from 'lib/starton';
 
 type GetCertificatesProps = {
 	address: string;
@@ -15,11 +15,11 @@ const getCertificates = async ({
 	certificates,
 	setCertificates,
 }: GetCertificatesProps): Promise<ResponseMessage> => {
-	const tokens = await deemos.getAllTokens(address);
+	const tokens = await starton.getAllTokens(address);
 
 	console.log('tokens', tokens);
 	tokens.map(async (id: number) => {
-		certificates.push(await deemos.getTokenInfo(id));
+		certificates.push(await starton.getTokenInfo(id));
 	});
 	setCertificates(certificates);
 	return { success: true, message: 'success' };
