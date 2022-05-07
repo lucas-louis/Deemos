@@ -17,7 +17,7 @@ const searchCertificate = async ({
 }: SearchCertificateProps): Promise<ResponseMessage> => {
 	try {
 		if (await starton.hasValid(address, parseInt(tokenID, 10))) {
-			setResults(await starton.getTokenInfo(parseInt(tokenID, 10)));
+			setResults(await starton.getTokenInfos(parseInt(tokenID, 10)));
 			return { success: true, message: 'Certificate found' };
 		}
 		return { success: false, message: 'Certificate not found' };

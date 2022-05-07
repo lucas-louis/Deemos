@@ -3,6 +3,11 @@ import axios, { AxiosResponse } from 'axios';
 import { REACT_APP_STARTON_API_KEY, REACT_APP_STARTON_BASE_URL, REACT_APP_STARTON_CONTRACT_URI } from 'config/config';
 import { Token } from 'types/types';
 
+type GetAllTokensRes = {
+	_hex: string;
+	_isBigNumber: boolean;
+};
+
 const customAxios = axios.create({
 	headers: {
 		'x-api-key': REACT_APP_STARTON_API_KEY,
@@ -11,7 +16,6 @@ const customAxios = axios.create({
 });
 
 const req = (func: string, param: any[], address = '') => {
-	console.log(func);
 	const modifyingFunctions = ['createToken', 'unvalidToken'];
 	if (!modifyingFunctions.find((f) => f === func)) {
 		return customAxios.post(`${REACT_APP_STARTON_CONTRACT_URI}/read`, {
@@ -46,7 +50,6 @@ const starton = {
 		const description = 'certifies your date of birth and nationality';
 		const symbol = 'DEE';
 
-		console.log(Date.parse(expiration));
 		const res: AxiosResponse = await req(
 			'createToken',
 			[
@@ -83,14 +86,16 @@ const starton = {
 		return res.data.response === true;
 	},
 
-	getTokenInfo: async (id: number): Promise<Token> => {
+	getTokenInfos: async (id: number): Promise<Token> => {
 		const res: AxiosResponse = await req('getTokenInfos', [id]);
+		console.log(res.data);
 		return res.data.response as Token;
 	},
 
 	getAllTokens: async (address: string): Promise<number[]> => {
 		const res: AxiosResponse = await req('getAllTokens', [address]);
-		return res.data.response.map((it: string) => parseInt(it, 10));
+		// eslint-disable-next-line no-underscore-dangle
+		return res.data.response.map((id: GetAllTokensRes) => parseInt(id._hex, 16));
 	},
 
 	unvalidToken: async (id: number, address: string): Promise<boolean> => {
