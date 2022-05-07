@@ -13,7 +13,7 @@ jobs:
       - name: install node
         run: sudo apt install nodejs npm
       - name: build front
-        run: ls && cd front && npm run build
+        run: echo $(ls) && cd front && npm run build
       - name: bundle
         run: |
           mkdir -p app/front
