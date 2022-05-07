@@ -1,10 +1,11 @@
 import Auth from 'lib/auth';
 import starton from 'lib/starton';
+import axios from 'axios';
 
 import uploadFile from 'utils/uploadFile';
 
 import { ResponseMessage } from 'types/types';
-import { REACT_APP_BASE_URI } from '../config/config';
+import { REACT_APP_BASE_URI, REACT_APP_BACKEND } from '../config/config';
 
 type UploadCertificateProps = {
 	file: File | undefined;
@@ -39,7 +40,9 @@ const uploadCertificate = async ({
 			};
 			const newFile = new File([JSON.stringify(data)], 'metadata.json');
 			const CID = await uploadFile(auth.account.currentProvider, newFile);
-			const result = await starton.createToken(auth.accountAddress, `${REACT_APP_BASE_URI}${CID}`, expiryDate);
+			const result = await axios.post(`${REACT_APP_BACKEND}/api/identity?wallet_address=${auth.accountAddress}&tokenUri=${REACT_APP_BASE_URI}${CID}&expiration=${expiryDate}`)
+			console.dir(result.data)
+			// const result = await starton.createToken(auth.accountAddress, `${REACT_APP_BASE_URI}${CID}`, expiryDate);
 			return { success: true, message: 'Good' };
 		}
 		return { success: false, message: 'Bad account' };

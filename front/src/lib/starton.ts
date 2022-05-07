@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { REACT_APP_STARTON_API_KEY, REACT_APP_STARTON_BASE_URL, REACT_APP_STARTON_CONTRACT_URI } from 'config/config';
+import { REACT_APP_STARTON_API_KEY, REACT_APP_STARTON_BASE_URL, REACT_APP_STARTON_CONTRACT_URI, REACT_APP_SIGNER_WALLET } from 'config/config';
 import { Token } from 'types/types';
 
 type GetAllTokensRes = {
@@ -25,7 +25,7 @@ const req = (func: string, param: any[], address = '') => {
 	}
 	return customAxios.post(`${REACT_APP_STARTON_CONTRACT_URI}/call`, {
 		functionName: func,
-		signerWallet: '0xc613066dB8085B44d7212C0c3389c747Ea71b325',
+		signerWallet: REACT_APP_SIGNER_WALLET,
 		speed: 'low',
 		params: [...param],
 	});
