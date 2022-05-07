@@ -1,4 +1,4 @@
-import { Text, VStack } from '@chakra-ui/react';
+import { Button, Text, VStack } from '@chakra-ui/react';
 
 import { Token } from 'types/types';
 
@@ -17,8 +17,19 @@ const TokenCard = ({ token }: TokenCardProps): JSX.Element => {
 		);
 	}
 	return (
-		<VStack>
-			<Text color="#FFEBEB">{token.name}</Text>
+		<VStack w="100%" h="50vh" p="32px" ml="128px" borderRadius="32px" bg="rgba(0, 0, 255, 0.1)">
+			<Text color="#FFEBEB" fontSize="24px">
+				{token.name}
+			</Text>
+			<Text color="#FFEBEB" fontSize="20px">
+				{token.description}
+			</Text>
+			<Text color="#FFEBEB" fontSize="16px">
+				{token.owner}
+			</Text>
+			<Text color="#FFEBEB" fontSize="16px">
+				{token.isValid}
+			</Text>
 		</VStack>
 	);
 };

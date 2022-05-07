@@ -15,6 +15,7 @@ type DisplayTokenCardsProps = {
 
 const DashboardView = (): JSX.Element => {
 	const [certificates, setCertificates] = useState<Token[]>([]);
+	const [index, setIndex] = useState<number>(0);
 	const {
 		isOpen: isOpenCertificateModal,
 		onClose: onCloseCertificateModal,
@@ -28,6 +29,22 @@ const DashboardView = (): JSX.Element => {
 			printToast(await getCertificates({ address, certificates, setCertificates }));
 		})();
 	}, []);
+
+	const previousIndex = () => {
+		if (index - 1 < 0) {
+			setIndex(certificates.length - 1);
+		} else {
+			setIndex(index - 1);
+		}
+	};
+
+	const nextIndex = () => {
+		if (index + 1 > certificates.length - 1) {
+			setIndex(0);
+		} else {
+			setIndex(index + 1);
+		}
+	};
 
 	const printToast = (responseMessage: ResponseMessage): void => {
 		toast({
@@ -49,7 +66,7 @@ const DashboardView = (): JSX.Element => {
 		return (
 			<>
 				{certificates.map((certificate) => (
-					<TokenCard token={certificate} />
+					<TokenCard token={certificate} key={certificate.uid} />
 				))}
 			</>
 		);
@@ -63,8 +80,12 @@ const DashboardView = (): JSX.Element => {
 						Add Certificate
 					</Button>
 					<Divider w="75%" />
+					<TokenCard token={certificates[index]} />
 				</VStack>
-				<DisplayTokenCards tokens={certificates} />
+				<HStack>
+					<Button onClick={previousIndex}>Prev</Button>
+					<Button onClick={nextIndex}>Next</Button>
+				</HStack>
 			</VStack>
 			<AddCertificateModal isOpen={isOpenCertificateModal} onClose={onCloseCertificateModal} />
 		</HStack>

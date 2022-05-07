@@ -1,12 +1,17 @@
 import Web3 from 'web3';
 
+import { Token } from 'types/types';
+
 class Auth {
 	public account: Web3 | undefined;
 
 	public accountAddress: string;
 
+	public certificates: Token[];
+
 	constructor() {
 		this.accountAddress = '';
+		this.certificates = [];
 	}
 
 	public async logout(): Promise<void> {
@@ -21,6 +26,10 @@ class Auth {
 
 	public async getAccount(): Promise<Web3 | undefined> {
 		return this.account;
+	}
+
+	public async setSertificated(certificates: Token[]): Promise<void> {
+		this.certificates = certificates;
 	}
 }
 

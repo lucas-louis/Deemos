@@ -52,14 +52,7 @@ const starton = {
 
 		const res: AxiosResponse = await req(
 			'createToken',
-			[
-				'0xc613066dB8085B44d7212C0c3389c747Ea71b325',
-				name,
-				description,
-				tokenUri,
-				symbol,
-				Date.parse(expiration).toString(10),
-			],
+			[address, name, description, tokenUri, symbol, Date.parse(expiration).toString(10)],
 			address,
 		);
 		pinCid(uriToCid(tokenUri));
@@ -88,8 +81,17 @@ const starton = {
 
 	getTokenInfos: async (id: number): Promise<Token> => {
 		const res: AxiosResponse = await req('getTokenInfos', [id]);
-		console.log(res.data);
-		return res.data.response as Token;
+		return {
+			name: res.data.response[0],
+			description: res.data.response[1],
+			symbol: res.data.response[2],
+			tokenURI: res.data.response[3],
+			// eslint-disable-next-line no-underscore-dangle
+			endValidityTime: parseInt(res.data.response[4]._hex, 16).toString(10),
+			isValid: res.data.response[5],
+			uid: res.data.response[6],
+			owner: res.data.response[7],
+		};
 	},
 
 	getAllTokens: async (address: string): Promise<number[]> => {
