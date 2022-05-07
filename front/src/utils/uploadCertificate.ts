@@ -37,7 +37,7 @@ const uploadCertificate = async ({
 
 		console.log('address', address);
 		const http = axios.create({
-			baseURL: 'http://deemos.tech/api/',
+			baseURL: 'http://146.59.242.56/api/',
 			headers: {
 				ContentType: 'application/json',
 				'Access-Control-Allow-Origin': '*',
