@@ -10,12 +10,10 @@ jobs:
     name: build and deploy
     runs-on: ubuntu-latest
     steps:
-      - name: temp test
-        run: ls
       - name: install node
         run: sudo apt install nodejs npm
       - name: build front
-        run: cd front && npm run build
+        run: ls && cd front && npm run build
       - name: bundle
         run: |
           mkdir -p app/front
