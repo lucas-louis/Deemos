@@ -1,0 +1,5 @@
+from os import environ as env
+
+STARTON_API_KEY = env.get('STARTON_API_KEY')
+STARTON_BASE_URL = env.get('STARTON_BASE_URL')
+STARTON_CONTRACT_URI = env.get('STARTON_CONTRACT_URI')
