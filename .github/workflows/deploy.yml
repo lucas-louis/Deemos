@@ -7,13 +7,19 @@ on:
 
 jobs:
   deploy:
+    env: 
+      CI: false
     name: build and deploy
     runs-on: ubuntu-latest
     steps:
-#      - name: install node
- #       run: sudo apt install nodejs npm
-      - name: build front
-        run: echo $(ls ../) && cd front && npm run build
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          ref: master
+      - name: install node
+        run: sudo apt install nodejs npm 
+      - name: build
+        run: cd front && npm i && npm run build
       - name: bundle
         run: |
           mkdir -p app/front
