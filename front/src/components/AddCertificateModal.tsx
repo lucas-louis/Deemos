@@ -53,7 +53,6 @@ const AddCertificateModal = ({ isOpen, onClose }: AddCertificateModalProps): JSX
 			<>
 				<Input
 					type="text"
-					h="100%"
 					w="100%"
 					p="10px"
 					my="10px"
@@ -62,7 +61,6 @@ const AddCertificateModal = ({ isOpen, onClose }: AddCertificateModalProps): JSX
 				/>
 				<Input
 					type="text"
-					h="100%"
 					w="100%"
 					p="10px"
 					my="10px"
@@ -71,7 +69,6 @@ const AddCertificateModal = ({ isOpen, onClose }: AddCertificateModalProps): JSX
 				/>
 				<Input
 					type="text"
-					h="100%"
 					w="100%"
 					p="10px"
 					my="10px"
@@ -80,7 +77,6 @@ const AddCertificateModal = ({ isOpen, onClose }: AddCertificateModalProps): JSX
 				/>
 				<Input
 					type="text"
-					h="100%"
 					w="100%"
 					p="10px"
 					my="10px"
@@ -89,7 +85,6 @@ const AddCertificateModal = ({ isOpen, onClose }: AddCertificateModalProps): JSX
 				/>
 				<Input
 					type="text"
-					h="100%"
 					w="100%"
 					p="10px"
 					my="10px"
@@ -99,7 +94,6 @@ const AddCertificateModal = ({ isOpen, onClose }: AddCertificateModalProps): JSX
 				<Text>Birth date</Text>
 				<Input
 					type="date"
-					h="100%"
 					w="100%"
 					p="10px"
 					my="10px"
@@ -109,7 +103,6 @@ const AddCertificateModal = ({ isOpen, onClose }: AddCertificateModalProps): JSX
 				<Text>Expiry date</Text>
 				<Input
 					type="date"
-					h="100%"
 					w="100%"
 					p="10px"
 					my="10px"
@@ -118,7 +111,6 @@ const AddCertificateModal = ({ isOpen, onClose }: AddCertificateModalProps): JSX
 				/>
 				<Input
 					type="file"
-					h="100%"
 					w="100%"
 					p="10px"
 					my="10px"
