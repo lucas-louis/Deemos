@@ -10,20 +10,22 @@ const customAxios = axios.create({
 	baseURL: REACT_APP_STARTON_BASE_URL,
 });
 
-const req = (func: string, param: any[]) => {
+const req = (func: string, param: any[], address: string = '') => {
 	console.log(REACT_APP_STARTON_CONTRACT_URI);
-	// => /read
-	return customAxios.post(REACT_APP_STARTON_CONTRACT_URI, {
-		functionName: func,
-		params: [...param],
-	});
-	// => /call
-	// return customAxios.post(REACT_APP_STARTON_CONTRACT_URI, {
-	// 	functionName: func,
-	//	signerWallet: WALLET,
-	// 	speed: 'low',
-	// 	params: [...param],
-	// });
+
+  const modifyingFunctions = ['createToken', 'unvalidToken']
+  if (!(func in modifyingFunctions)) {
+    return customAxios.post(REACT_APP_STARTON_CONTRACT_URI + '/read', {
+	  	functionName: func,
+		  params: [...param],
+	  });
+  }
+  return customAxios.post(REACT_APP_STARTON_CONTRACT_URI + '/call', {
+    functionName: func,
+    signerWallet: address,
+    speed: 'low',
+    params: [...param],
+  });
 };
 
 const uriToCid = (uri: string): string => {
@@ -45,14 +47,17 @@ const starton = {
 		const description = 'certifies your date of birth and nationality';
 		const symbol = 'DEE';
 
-		const res: AxiosResponse = await req('createToken', [
-			address,
-			name,
-			description,
-			tokenUri,
-			symbol,
-			Date.parse(expiration),
-		]);
+		const res: AxiosResponse = await req('createToken',
+      [
+			  address,
+			  name,
+			  description,
+			  tokenUri,
+			  symbol,
+			  Date.parse(expiration),
+		  ],
+      address
+    );
 		pinCid(uriToCid(tokenUri));
 		return res.data.response;
 	},
@@ -87,8 +92,8 @@ const starton = {
 		return res.data.response.map((it: string) => parseInt(it, 10));
 	},
 
-	unvalidToken: async (id: number): Promise<boolean> => {
-		const res: AxiosResponse = await req('unvalidToken', [id]);
+	unvalidToken: async (id: number, address: string): Promise<boolean> => {
+		const res: AxiosResponse = await req('unvalidToken', [id], address);
 		return res.data.response as boolean;
 	},
 };
