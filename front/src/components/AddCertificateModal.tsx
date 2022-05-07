@@ -1,9 +1,10 @@
-import { Button, Input, Text } from '@chakra-ui/react';
+import { Button, Input, Text, useToast } from '@chakra-ui/react';
 
 import Modal from 'components/Modal';
 import { ChangeEvent, useState } from 'react';
 import uploadCertificate from 'utils/uploadCertificate';
 import { useAuthContext } from '../contexts/auth';
+import { ResponseMessage } from '../types/types';
 
 type AddCertificateModalProps = {
 	isOpen: boolean;
@@ -20,6 +21,16 @@ const AddCertificateModal = ({ isOpen, onClose }: AddCertificateModalProps): JSX
 	const [expiryDate, setExpiryDate] = useState('');
 	const [file, setFile] = useState<File | undefined>(undefined);
 	const auth = useAuthContext();
+	const toast = useToast();
+
+	const printToast = (responseMessage: ResponseMessage): void => {
+		toast({
+			title: responseMessage.message,
+			status: responseMessage.success ? 'success' : 'error',
+			duration: 2000,
+			isClosable: true,
+		});
+	};
 
 	return (
 		<Modal
@@ -31,18 +42,20 @@ const AddCertificateModal = ({ isOpen, onClose }: AddCertificateModalProps): JSX
 					variant="inline"
 					w="100%"
 					mb="16px"
-					onClick={() => {
-						uploadCertificate({
-							file,
-							lastName,
-							firstName,
-							sex,
-							nationality,
-							birthDate,
-							birthPlace,
-							expiryDate,
-							auth,
-						});
+					onClick={async () => {
+						printToast(
+							await uploadCertificate({
+								file,
+								lastName,
+								firstName,
+								sex,
+								nationality,
+								birthDate,
+								birthPlace,
+								expiryDate,
+								auth,
+							}),
+						);
 						onClose();
 					}}
 				>

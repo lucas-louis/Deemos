@@ -6,6 +6,8 @@ import { Token } from 'types/types';
 
 import TokenCard from 'components/TokenCard';
 import AddCertificateModal from 'components/AddCertificateModal';
+import getCertificates from 'utils/getCertificates';
+import { useAuthContext } from '../contexts/auth';
 
 type DisplayTokenCardsProps = {
 	tokens: Token[];
@@ -18,14 +20,13 @@ const DashboardView = (): JSX.Element => {
 		onClose: onCloseCertificateModal,
 		onOpen: onOpenCertificateModal,
 	} = useDisclosure();
+	const address = useAuthContext().accountAddress;
 
 	useEffect(() => {
 		(async () => {
-			await getCertificates();
+			await getCertificates({ address, certificates, setCertificates });
 		})();
 	}, []);
-
-	const getCertificates = async (): Promise<Token[]> => [];
 
 	// TODO improve "no certificates" message
 	const DisplayTokenCards = ({ tokens }: DisplayTokenCardsProps): JSX.Element => {

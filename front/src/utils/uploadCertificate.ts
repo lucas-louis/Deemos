@@ -1,6 +1,10 @@
 import Auth from 'lib/auth';
-import axios from 'axios';
-import uploadFile from './uploadFile';
+import deemos from 'lib/starton';
+
+import uploadFile from 'utils/uploadFile';
+
+import { ResponseMessage } from 'types/types';
+import { REACT_APP_BASE_URI } from '../config/config';
 
 type UploadCertificateProps = {
 	file: File | undefined;
@@ -24,40 +28,20 @@ const uploadCertificate = async ({
 	birthPlace,
 	expiryDate,
 	auth,
-}: UploadCertificateProps) => {
+}: UploadCertificateProps): Promise<ResponseMessage> => {
+	// TODO improve return messages
 	if (auth.account) {
 		const data = {
 			age: birthDate,
 			nationality,
+			expirationTime: expiryDate,
 		};
 		const newFile = new File([JSON.stringify(data)], 'metadata.json');
 		const CID = await uploadFile(auth.account.currentProvider, newFile);
-		console.log('CID', CID);
-		const address = await auth.account.eth.getAccounts();
-
-		console.log('address', address);
-		const http = axios.create({
-			baseURL: 'http://146.59.242.56/api/',
-			headers: {
-				ContentType: 'application/json',
-				'Access-Control-Allow-Origin': '*',
-			},
-		});
-		const result = await http.post(`/identity?wallet_adress=${address[0]}&cid=${CID}`, {
-			card: {
-				first_name: firstName,
-				last_name: lastName,
-				date_of_birth: birthDate,
-				sex,
-				nationality,
-				place_of_birth: birthPlace,
-				expiration: expiryDate,
-			},
-			file,
-		});
-		console.log(result.status, result.data);
+		const result = await deemos.createToken(auth.accountAddress, `${REACT_APP_BASE_URI}${CID}`, expiryDate);
+		return { success: true, message: 'Good' };
 	}
-	console.log(file, lastName, firstName, sex, nationality, birthDate, birthPlace, expiryDate);
+	return { success: false, message: 'Bad account' };
 };
 
 export default uploadCertificate;

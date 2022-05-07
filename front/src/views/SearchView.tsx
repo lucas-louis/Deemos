@@ -1,18 +1,25 @@
 import { useState } from 'react';
 
-import { Button, HStack, Input, VStack } from '@chakra-ui/react';
+import { Button, HStack, Input, useToast, VStack } from '@chakra-ui/react';
 
-import { Token } from 'types/types';
+import { ResponseMessage, Token } from 'types/types';
 
 import TokenCard from 'components/TokenCard';
+import searchCertificate from '../utils/searchCertificate';
 
 const SearchView = (): JSX.Element => {
 	const [results, setResults] = useState<Token>();
 	const [address, setAddress] = useState<string>('');
-	const [tokenId, setTokenId] = useState<string>('');
+	const [tokenID, setTokenID] = useState<string>('');
+	const toast = useToast();
 
-	const search = () => {
-		// TOOD call the api to search
+	const printToast = (responseMessage: ResponseMessage): void => {
+		toast({
+			title: responseMessage.message,
+			status: responseMessage.success ? 'success' : 'error',
+			duration: 2000,
+			isClosable: true,
+		});
 	};
 
 	return (
@@ -28,11 +35,18 @@ const SearchView = (): JSX.Element => {
 					<Input
 						placeholder="Token ID"
 						onChange={(e) => {
-							setTokenId(e.target.value);
+							setTokenID(e.target.value);
 						}}
 					/>
 				</VStack>
-				<Button variant="inline" w="100%" cursor="pointer" onClick={search}>
+				<Button
+					variant="inline"
+					w="100%"
+					cursor="pointer"
+					onClick={async () => {
+						printToast(await searchCertificate({ address, tokenID, setResults }));
+					}}
+				>
 					Search
 				</Button>
 			</VStack>
