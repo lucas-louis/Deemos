@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: temp test
-        run: ls && pwd && sleep 20
+        run: ls
       - name: install node
         run: sudo apt install nodejs npm
       - name: build front
