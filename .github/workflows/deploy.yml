@@ -1,0 +1,25 @@
+name: Deploy to production
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: build and deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: install node
+        run: sudo apt install nodejs npm
+      - name: build front
+        run: cd front && npm run build
+      - name: bundle
+        run: |
+          mkdir -p app/front
+          mv front/build app/front
+          mv back app
+      - name: upload
+        run: scp -r app ${{ secrets.USER }}@${{ secrets.IP }}:/home/${{ secrets.USER }}
+      - name: restart service
+        run: ssh ${{ secrets.USER }}@${{ secrets.IP }} "sudo systemctl restart deemos.service"
