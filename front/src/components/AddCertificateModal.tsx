@@ -2,34 +2,12 @@ import { Button, Input, Text } from '@chakra-ui/react';
 
 import Modal from 'components/Modal';
 import { ChangeEvent, useState } from 'react';
+import uploadCertificate from 'utils/uploadCertificate';
+import { useAuthContext } from '../contexts/auth';
 
 type AddCertificateModalProps = {
 	isOpen: boolean;
 	onClose: () => void;
-};
-
-type UploadCertificateProps = {
-	file: File | undefined;
-	lastName: string;
-	firstName: string;
-	sex: string;
-	nationality: string;
-	birthDate: string;
-	birthPlace: string;
-	expiryDate: string;
-};
-
-const uploadCertificate = ({
-	file,
-	lastName,
-	firstName,
-	sex,
-	nationality,
-	birthDate,
-	birthPlace,
-	expiryDate,
-}: UploadCertificateProps) => {
-	console.log(file, lastName, firstName, sex, nationality, birthDate, birthPlace, expiryDate);
 };
 
 const AddCertificateModal = ({ isOpen, onClose }: AddCertificateModalProps): JSX.Element => {
@@ -41,6 +19,7 @@ const AddCertificateModal = ({ isOpen, onClose }: AddCertificateModalProps): JSX
 	const [birthPlace, setBirthPlace] = useState('');
 	const [expiryDate, setExpiryDate] = useState('');
 	const [file, setFile] = useState<File | undefined>(undefined);
+	const auth = useAuthContext();
 
 	return (
 		<Modal
@@ -62,6 +41,7 @@ const AddCertificateModal = ({ isOpen, onClose }: AddCertificateModalProps): JSX
 							birthDate,
 							birthPlace,
 							expiryDate,
+							auth,
 						});
 						onClose();
 					}}
