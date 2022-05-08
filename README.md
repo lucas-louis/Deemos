@@ -18,6 +18,8 @@ With the open-source code you can be sure that Deemos does not keep any informat
 
 ## Installation
 
+No installation needed. It is already running [deemoos](http://deemos.tech/)
+
 ## Team & Feedbacks
 
 Our team is "Deemos x PoC". Through this hackaton we 
