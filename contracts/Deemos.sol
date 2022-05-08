@@ -15,7 +15,7 @@ contract Deemos {
         string symbol;
         uint256 endValidityTime;
         bool isValid;
-        bytes32 uid;
+        uint256 id;
         address owner;
     }
 
@@ -78,8 +78,9 @@ contract Deemos {
     /// @notice Get the info of a token
     /// @param _tokenId Indentifier of the token
     /// @return The info of the token
-    function getTokenInfos(uint256 _tokenId) external view returns (Token memory) {
-        return tokens[_tokenId];
+    function getTokenInfos(uint256 _tokenId) external view returns (string memory, string memory, string memory, string memory, uint256, bool, uint256, address) {
+        Token memory tempToken = tokens[_tokenId];
+        return (tempToken.name, tempToken.description, tempToken.symbol, tempToken.tokenURI, tempToken.endValidityTime, tempToken.isValid, tempToken.id, tempToken.owner);
     }
 
     /// @notice Create a token with the given informations to the given owner
@@ -89,7 +90,7 @@ contract Deemos {
     /// @param _tokenURI URI of the token
     /// @param _symbol Symbol of the token
     /// @return Return the id of the created token
-    function createToken(address _owner, string memory _name, string memory _description, string memory _tokenURI, string memory _symbol, uint256 _endValidityTime) external ownerOnly returns (uint256) {
+    function createToken(address _owner, string memory _name, string memory _description, string memory _tokenURI, string memory _symbol, uint256 _endValidityTime) external returns (uint256) {
         owners[_owner].tokens[tokenIdCounter] = true;
         owners[_owner].tokensNbr = owners[_owner].tokensNbr.add(1);
         owners[_owner].tokensId.push(tokenIdCounter);
@@ -100,7 +101,7 @@ contract Deemos {
         tokens[tokenIdCounter].symbol = _symbol;
         tokens[tokenIdCounter].endValidityTime = _endValidityTime;
         tokens[tokenIdCounter].isValid = true;
-        tokens[tokenIdCounter].uid = keccak256(abi.encodePacked(_owner, block.timestamp));
+        tokens[tokenIdCounter].id = tokenIdCounter;
         tokens[tokenIdCounter].owner = _owner;
         tokenIdCounter = tokenIdCounter.add(1);
         return tokenIdCounter.sub(1);
