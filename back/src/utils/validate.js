@@ -3,7 +3,7 @@ function validate(req, res, validators) {
 
   for (const location of locations) {
     if (!validators[location]) continue
-    if (validators[location]) for (let field of validators.body) {
+    if (validators[location]) for (let field of validators[location]) {
       const val = req[location][field[0]]
       const type = field[1]
       const required = field[2] === 'required'

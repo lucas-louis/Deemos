@@ -26,7 +26,7 @@ const DashboardView = (): JSX.Element => {
 
 	useEffect(() => {
 		(async () => {
-			printToast(await getCertificates({ address, certificates, setCertificates }));
+			getCertificates({ address, certificates, setCertificates }).then((res) => printToast(res))
 		})();
 	}, []);
 
@@ -60,7 +60,7 @@ const DashboardView = (): JSX.Element => {
 		if (tokens.length === 0)
 			return (
 				<Text fontSize="32px" color="#FFEBEB" fontWeight="700">
-					No certificates founded
+					No certificates found
 				</Text>
 			);
 		return (

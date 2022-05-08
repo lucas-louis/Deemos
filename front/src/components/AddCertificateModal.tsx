@@ -42,20 +42,18 @@ const AddCertificateModal = ({ isOpen, onClose }: AddCertificateModalProps): JSX
 					variant="inline"
 					w="100%"
 					mb="16px"
-					onClick={async () => {
-						printToast(
-							await uploadCertificate({
-								file,
-								lastName,
-								firstName,
-								sex,
-								nationality,
-								birthDate,
-								birthPlace,
-								expiryDate,
-								auth,
-							}),
-						);
+					onClick={() => {
+						uploadCertificate({
+							file,
+							lastName,
+							firstName,
+							sex,
+							nationality,
+							birthDate,
+							birthPlace,
+							expiryDate,
+							auth,
+						}).then((res) => printToast(res))
 						onClose();
 					}}
 				>
