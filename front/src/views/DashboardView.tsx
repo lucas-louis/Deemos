@@ -61,7 +61,7 @@ const DashboardView = (): JSX.Element => {
 					<Divider w="75%" />
 					<TokenCard token={certificates[index]} />
 				</VStack>
-				<HStack>
+				<HStack pb="192px">
 					<Button variant="reverseInline" onClick={previousIndex}>
 						Prev
 					</Button>

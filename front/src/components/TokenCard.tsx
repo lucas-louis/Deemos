@@ -69,7 +69,16 @@ const TokenCard = ({ token }: TokenCardProps): JSX.Element => {
 	};
 
 	return (
-		<VStack w="100%" h="50vh" p="32px" ml="128px" borderRadius="32px" bg="rgba(0, 0, 255, 0.1)" textAlign="center">
+		<VStack
+			w="100%"
+			h="600px"
+			p="32px"
+			ml="128px"
+			borderRadius="32px"
+			bg="rgba(0, 0, 255, 0.1)"
+			textAlign="center"
+			mr="64px"
+		>
 			<Text color="#FFEBEB" fontSize="24px">
 				{token.name}
 			</Text>
