@@ -26,7 +26,7 @@ const DashboardView = (): JSX.Element => {
 
 	useEffect(() => {
 		(async () => {
-			getCertificates({ address, certificates, setCertificates }).then((res) => printToast(res))
+			getCertificates({ address, certificates, setCertificates }).then((res) => printToast(res));
 		})();
 	}, []);
 

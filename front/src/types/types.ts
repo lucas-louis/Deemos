@@ -13,3 +13,9 @@ export type ResponseMessage = {
 	success: boolean;
 	message: string;
 };
+
+export type GetContentTokenURIResponse = {
+	age: string;
+	nationality: string;
+	expirationTime: string;
+};

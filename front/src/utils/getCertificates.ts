@@ -3,7 +3,6 @@ import React from 'react';
 import { ResponseMessage, Token } from 'types/types';
 
 import starton from 'lib/starton';
-import { start } from 'repl';
 
 type GetCertificatesProps = {
 	address: string;
@@ -20,8 +19,8 @@ const getCertificates = async ({
 		const tokens = await starton.getAllTokens(address);
 
 		const req = tokens.map((id: number) => starton.getTokenInfos(id));
-		Promise.all(req).then((arr) => setCertificates(arr))
-		console.dir(certificates)
+		Promise.all(req).then((arr) => setCertificates(arr));
+		console.dir(certificates);
 		return { success: true, message: 'Certificate loaded' };
 	} catch (error) {
 		console.error(error);
