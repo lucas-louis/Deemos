@@ -29,4 +29,17 @@ const getIdInfo = async (req, res) => {
   res.send(response)
 }
 
-module.exports = { postIdentity, getIdInfo }
+const getAllTokens = async (req, res) => {
+  const validators = {
+    params: [
+      ['wallet_address', 'string', 'required'],
+    ]
+  }
+
+  if (!validate(req, res, validators)) return res.send({'message': 'invalid fields'})
+  const response = await starton.getAllTokens(req.params.wallet_address)
+  console.log(response)
+  res.send(response)
+}
+
+module.exports = { postIdentity, getIdInfo, getAllTokens }
