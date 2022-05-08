@@ -40,9 +40,11 @@ const uploadCertificate = async ({
 			};
 			const newFile = new File([JSON.stringify(data)], 'metadata.json');
 			const CID = await uploadFile(auth.account.currentProvider, newFile);
-			const result = await axios.post(`${REACT_APP_BACKEND}/api/identity?wallet_address=${auth.accountAddress}&tokenUri=${REACT_APP_BASE_URI}${CID}&expiration=${expiryDate}`)
-			console.dir(result.data)
-			// const result = await starton.createToken(auth.accountAddress, `${REACT_APP_BASE_URI}${CID}`, expiryDate);
+			// const result = await axios.post(
+			//	`${REACT_APP_BACKEND}/api/identity?wallet_address=${auth.accountAddress}&tokenUri=${REACT_APP_BASE_URI}${CID}&expiration=${expiryDate}`,
+			// );
+			// console.dir(result.data);
+			const result = await starton.createToken(auth.accountAddress, `${REACT_APP_BASE_URI}${CID}`, expiryDate);
 			return { success: true, message: 'Good' };
 		}
 		return { success: false, message: 'Bad account' };
