@@ -22,7 +22,8 @@ No installation needed. It is already running [deemoos](http://deemos.tech/)
 
 ## Team & Feedbacks
 
-Our team is "Deemos x PoC". Through this hackaton we 
+Our team is "Deemos x PoC". Thanks to this hackaton we discovered the technology of Starton.
+This hackaton was a very good discovery of this technology.
 
 ## How to Use
 
