@@ -1,7 +1,8 @@
 import { Route, RouteProps } from 'react-router-dom';
 
 import { HStack, Text, VStack } from '@chakra-ui/react';
-import Footer from '../components/Footer';
+
+import Footer from 'components/Footer';
 
 type HomeRouteProps = { children: JSX.Element } & RouteProps;
 

@@ -1,8 +1,11 @@
-import Routes from 'app/Routes';
 import { useEffect, useState } from 'react';
+
 import { Center, Spinner } from '@chakra-ui/react';
+
+import Routes from 'app/Routes';
+
 import AuthContext from 'contexts/auth';
-import Auth from '../lib/auth';
+import Auth from 'lib/auth';
 
 const App = (): JSX.Element => {
 	const [auth, setAuth] = useState<Auth | undefined>(undefined);

@@ -6,8 +6,10 @@ import { ResponseMessage, Token } from 'types/types';
 
 import TokenCard from 'components/TokenCard';
 import AddCertificateModal from 'components/AddCertificateModal';
+
 import getCertificates from 'utils/getCertificates';
-import { useAuthContext } from '../contexts/auth';
+
+import { useAuthContext } from 'contexts/auth';
 
 const DashboardView = (): JSX.Element => {
 	const [certificates, setCertificates] = useState<Token[]>([]);

@@ -1,10 +1,14 @@
+import { ChangeEvent, useState } from 'react';
+
 import { Button, Input, Text, useToast } from '@chakra-ui/react';
 
 import Modal from 'components/Modal';
-import { ChangeEvent, useState } from 'react';
+
 import uploadCertificate from 'utils/uploadCertificate';
-import { useAuthContext } from '../contexts/auth';
-import { ResponseMessage } from '../types/types';
+
+import { useAuthContext } from 'contexts/auth';
+
+import { ResponseMessage } from 'types/types';
 
 type AddCertificateModalProps = {
 	isOpen: boolean;

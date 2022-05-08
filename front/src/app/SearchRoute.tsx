@@ -1,7 +1,8 @@
 import { Link, Route, RouteProps } from 'react-router-dom';
 
 import { HStack, Text, VStack } from '@chakra-ui/react';
-import Footer from '../components/Footer';
+
+import Footer from 'components/Footer';
 
 type SearchRouteProps = { children: JSX.Element } & RouteProps;
 

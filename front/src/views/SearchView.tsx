@@ -5,7 +5,8 @@ import { Button, HStack, Input, useToast, VStack } from '@chakra-ui/react';
 import { ResponseMessage, Token } from 'types/types';
 
 import TokenCard from 'components/TokenCard';
-import searchCertificate from '../utils/searchCertificate';
+
+import searchCertificate from 'utils/searchCertificate';
 
 const SearchView = (): JSX.Element => {
 	const [results, setResults] = useState<Token>();

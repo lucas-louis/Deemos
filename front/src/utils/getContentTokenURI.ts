@@ -1,5 +1,7 @@
-import { GetContentTokenURIResponse } from 'types/types';
 import React from 'react';
+
+import { GetContentTokenURIResponse } from 'types/types';
+
 import getFile from 'utils/getFile';
 
 type GetContentTokenURIProps = {

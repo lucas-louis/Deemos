@@ -2,8 +2,10 @@ import { useEffect } from 'react';
 import { Link, Route, RouteProps, useHistory } from 'react-router-dom';
 
 import { Center, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
-import { useAuthContext } from '../contexts/auth';
-import Footer from '../components/Footer';
+
+import { useAuthContext } from 'contexts/auth';
+
+import Footer from 'components/Footer';
 
 type PrivateRouteProps = { children: JSX.Element } & RouteProps;
 

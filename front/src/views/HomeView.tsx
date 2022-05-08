@@ -3,7 +3,8 @@ import Web3 from 'web3';
 import { Button } from '@chakra-ui/react';
 
 import { useHistory } from 'react-router-dom';
-import { useAuthContext } from '../contexts/auth';
+
+import { useAuthContext } from 'contexts/auth';
 
 const HomeView = (): JSX.Element => {
 	const auth = useAuthContext();

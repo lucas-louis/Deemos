@@ -11,10 +11,9 @@ import {
 	Text,
 	VStack,
 } from '@chakra-ui/react';
+import { CloseIcon } from '@chakra-ui/icons';
 
 import colors from 'theme/foundations/colors';
-
-import { CloseIcon } from '@chakra-ui/icons';
 
 type PopupProps = {
 	isOpen: boolean;

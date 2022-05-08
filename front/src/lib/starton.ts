@@ -6,6 +6,7 @@ import {
 	REACT_APP_STARTON_CONTRACT_URI,
 	REACT_APP_SIGNER_WALLET,
 } from 'config/config';
+
 import { Token } from 'types/types';
 
 type GetAllTokensRes = {
