@@ -68,6 +68,10 @@ const TokenCard = ({ token }: TokenCardProps): JSX.Element => {
 		return `${newDate.getDay()} / ${newDate.getMonth()} / ${newDate.getFullYear()}`;
 	};
 
+	const onClick = (copyText: string) => {
+		navigator.clipboard.writeText(copyText);
+	};
+
 	return (
 		<VStack
 			w="100%"
@@ -96,7 +100,7 @@ const TokenCard = ({ token }: TokenCardProps): JSX.Element => {
 					variant="inline"
 					w="96px"
 					onClick={async () => {
-						await navigator.clipboard.writeText(token.owner);
+						onClick(token.owner);
 						toast({
 							title: 'Owner address, copied to clipboard',
 							status: 'info',
@@ -118,7 +122,7 @@ const TokenCard = ({ token }: TokenCardProps): JSX.Element => {
 					variant="inline"
 					w="96px"
 					onClick={async () => {
-						await navigator.clipboard.writeText(token.tokenURI);
+						onClick(token.tokenURI);
 						toast({
 							title: 'IPFS URI, copied to clipboard',
 							status: 'info',
