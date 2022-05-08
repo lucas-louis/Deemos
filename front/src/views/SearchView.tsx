@@ -52,7 +52,7 @@ const SearchView = (): JSX.Element => {
 					Search
 				</Button>
 			</VStack>
-			<VStack>
+			<VStack w="40%">
 				<TokenCard token={results} />
 			</VStack>
 		</HStack>

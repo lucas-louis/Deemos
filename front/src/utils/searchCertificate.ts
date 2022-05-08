@@ -20,6 +20,7 @@ const searchCertificate = async ({
 			setResults(await starton.getTokenInfos(parseInt(tokenID, 10)));
 			return { success: true, message: 'Certificate found' };
 		}
+		setResults(undefined);
 		return { success: false, message: 'Certificate not found' };
 	} catch (error) {
 		console.error(error);

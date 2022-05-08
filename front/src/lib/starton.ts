@@ -94,7 +94,8 @@ const starton = {
 			// eslint-disable-next-line no-underscore-dangle
 			endValidityTime: parseInt(res.data.response[4]._hex, 16).toString(10),
 			isValid: res.data.response[5],
-			uid: res.data.response[6],
+			// eslint-disable-next-line no-underscore-dangle
+			id: parseInt(res.data.response[6]._hex, 16).toString(10),
 			owner: res.data.response[7],
 		};
 	},

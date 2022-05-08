@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { VStack, Text, Button, HStack, Divider, useDisclosure, useToast } from '@chakra-ui/react';
+import { VStack, Button, HStack, Divider, useDisclosure, useToast } from '@chakra-ui/react';
 
 import { ResponseMessage, Token } from 'types/types';
 
@@ -8,10 +8,6 @@ import TokenCard from 'components/TokenCard';
 import AddCertificateModal from 'components/AddCertificateModal';
 import getCertificates from 'utils/getCertificates';
 import { useAuthContext } from '../contexts/auth';
-
-type DisplayTokenCardsProps = {
-	tokens: Token[];
-};
 
 const DashboardView = (): JSX.Element => {
 	const [certificates, setCertificates] = useState<Token[]>([]);
@@ -55,23 +51,6 @@ const DashboardView = (): JSX.Element => {
 		});
 	};
 
-	// TODO improve "no certificates" message
-	const DisplayTokenCards = ({ tokens }: DisplayTokenCardsProps): JSX.Element => {
-		if (tokens.length === 0)
-			return (
-				<Text fontSize="32px" color="#FFEBEB" fontWeight="700">
-					No certificates found
-				</Text>
-			);
-		return (
-			<>
-				{certificates.map((certificate) => (
-					<TokenCard token={certificate} key={certificate.uid} />
-				))}
-			</>
-		);
-	};
-
 	return (
 		<HStack h="100vh" w="100%">
 			<VStack w="100%" h="50%" spacing="64px">
@@ -83,8 +62,12 @@ const DashboardView = (): JSX.Element => {
 					<TokenCard token={certificates[index]} />
 				</VStack>
 				<HStack>
-					<Button onClick={previousIndex}>Prev</Button>
-					<Button onClick={nextIndex}>Next</Button>
+					<Button variant="reverseInline" onClick={previousIndex}>
+						Prev
+					</Button>
+					<Button variant="inline" onClick={nextIndex}>
+						Next
+					</Button>
 				</HStack>
 			</VStack>
 			<AddCertificateModal isOpen={isOpenCertificateModal} onClose={onCloseCertificateModal} />

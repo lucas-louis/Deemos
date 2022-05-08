@@ -45,7 +45,7 @@ const uploadCertificate = async ({
 			// );
 			// console.dir(result.data);
 			const result = await starton.createToken(auth.accountAddress, `${REACT_APP_BASE_URI}${CID}`, expiryDate);
-			return { success: true, message: 'Good' };
+			return { success: true, message: 'Certificat added' };
 		}
 		return { success: false, message: 'Bad account' };
 	} catch (error) {

@@ -5,7 +5,7 @@ export type Token = {
 	symbol: string;
 	endValidityTime: string;
 	isValid: boolean;
-	uid: string;
+	id: string;
 	owner: string;
 };
 

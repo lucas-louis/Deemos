@@ -1,9 +1,11 @@
-import { Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Divider, HStack, Spacer, Text, useToast, VStack } from '@chakra-ui/react';
+import { CopyIcon } from '@chakra-ui/icons';
+
+import { useEffect, useState } from 'react';
+
+import axios from 'axios';
 
 import { GetContentTokenURIResponse, Token } from 'types/types';
-import getContentTokenURI from 'utils/getContentTokenURI';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 
 type TokenCardProps = {
 	token: Token | undefined;
@@ -17,15 +19,19 @@ const ValidityTokenCard = ({ token }: ValidityTokenCardProps): JSX.Element => {
 	if (token) {
 		if (token.isValid) {
 			return (
-				<Text bg="white" color="green" fontSize="20px">
-					Token valid
-				</Text>
+				<Box bg="green" px="32px" py="16px" borderRadius="64px" w="75%">
+					<Text color="#FFEBEB" fontSize="16px">
+						Token valid
+					</Text>
+				</Box>
 			);
 		}
 		return (
-			<Text bg="white" color="red" fontSize="20px">
-				Token invalid
-			</Text>
+			<Box bg="red" px="32px" py="16px" borderRadius="64px" w="75%">
+				<Text color="#FFEBEB" fontSize="16px">
+					Token invalid
+				</Text>
+			</Box>
 		);
 	}
 	return <></>;
@@ -37,15 +43,15 @@ const TokenCard = ({ token }: TokenCardProps): JSX.Element => {
 		nationality: '',
 		expirationTime: '',
 	});
+	const toast = useToast();
 
 	useEffect(() => {
 		(async () => {
 			if (token) {
-				console.log('te');
-				axios.get(token.tokenURI).then((res) => console.log(res));
+				axios.get(token.tokenURI).then((res) => setTokenInfos(res.data));
 			}
 		})();
-	}, []);
+	}, [token]);
 
 	if (!token || !tokenInfos) {
 		return (
@@ -57,28 +63,75 @@ const TokenCard = ({ token }: TokenCardProps): JSX.Element => {
 		);
 	}
 
+	const dateToStringDate = (date: string): string => {
+		const newDate = new Date(date);
+		return `${newDate.getDay()} / ${newDate.getMonth()} / ${newDate.getFullYear()}`;
+	};
+
 	return (
-		<VStack w="100%" h="50vh" p="32px" ml="128px" borderRadius="32px" bg="rgba(0, 0, 255, 0.1)">
+		<VStack w="100%" h="50vh" p="32px" ml="128px" borderRadius="32px" bg="rgba(0, 0, 255, 0.1)" textAlign="center">
 			<Text color="#FFEBEB" fontSize="24px">
 				{token.name}
 			</Text>
-			<Text color="#FFEBEB" fontSize="20px" pb="32px">
+			<Text color="#FFEBEB" fontSize="20px">
 				{token.description}
 			</Text>
-			<Text color="#FFEBEB" fontSize="16px">
-				{token.owner}
+			<Divider w="75%" />
+			<HStack w="100%" pb="8px" pt="32px">
+				<Text color="#FFEBEB" fontSize="16px" isTruncated w="100%">
+					{token.owner}
+				</Text>
+				<Spacer />
+				<Button
+					size="sm"
+					variant="inline"
+					w="96px"
+					onClick={async () => {
+						await navigator.clipboard.writeText(token.owner);
+						toast({
+							title: 'Owner address, copied to clipboard',
+							status: 'info',
+							duration: 5000,
+							isClosable: true,
+						});
+					}}
+				>
+					<CopyIcon w="16px" h="16px" />
+				</Button>
+			</HStack>
+			<HStack w="100%">
+				<Text color="#FFEBEB" fontSize="16px" w="100%">
+					IPFS URI
+				</Text>
+				<Spacer />
+				<Button
+					size="sm"
+					variant="inline"
+					w="96px"
+					onClick={async () => {
+						await navigator.clipboard.writeText(token.tokenURI);
+						toast({
+							title: 'IPFS URI, copied to clipboard',
+							status: 'info',
+							duration: 5000,
+							isClosable: true,
+						});
+					}}
+				>
+					<CopyIcon w="16px" h="16px" />
+				</Button>
+			</HStack>
+			<Text color="#FFEBEB" fontSize="16px" py="8px">
+				Birth date: {dateToStringDate(tokenInfos.age)}
 			</Text>
-			<Text color="#FFEBEB" fontSize="16px">
-				{token.tokenURI}
+			<Text color="#FFEBEB" fontSize="16px" py="8px">
+				Nationality: {tokenInfos.nationality}
 			</Text>
-			<Text color="#FFEBEB" fontSize="16px">
-				{tokenInfos.age}
+			<Text color="#FFEBEB" fontSize="16px" py="8px">
+				Expiration Date: {dateToStringDate(tokenInfos.expirationTime)}
 			</Text>
-			<Text color="#FFEBEB" fontSize="16px">
-				{tokenInfos.nationality}
-			</Text>
-			<Text color="#FFEBEB" fontSize="16px">
-				{tokenInfos.expirationTime}
+			<Text color="#FFEBEB" fontSize="16px" pt="8px" pb="32px">
+				Token ID: {token.id}
 			</Text>
 			<ValidityTokenCard token={token} />
 		</VStack>

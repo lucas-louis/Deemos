@@ -53,7 +53,7 @@ const AddCertificateModal = ({ isOpen, onClose }: AddCertificateModalProps): JSX
 							birthPlace,
 							expiryDate,
 							auth,
-						}).then((res) => printToast(res))
+						}).then((res) => printToast(res));
 						onClose();
 					}}
 				>
