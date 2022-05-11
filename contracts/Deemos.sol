@@ -17,6 +17,7 @@ contract Deemos {
         bool isValid;
         uint256 id;
         address owner;
+        string key;
     }
 
     struct Owner {
@@ -37,8 +38,8 @@ contract Deemos {
         _;
     }
 
-    constructor() public {
-        owner = tx.origin;
+    constructor(address _owner) public {
+        owner = _owner;
         tokenIdCounter = 0;
     }
 
@@ -90,7 +91,7 @@ contract Deemos {
     /// @param _tokenURI URI of the token
     /// @param _symbol Symbol of the token
     /// @return Return the id of the created token
-    function createToken(address _owner, string memory _name, string memory _description, string memory _tokenURI, string memory _symbol, uint256 _endValidityTime) external returns (uint256) {
+    function createToken(address _owner, string memory _name, string memory _description, string memory _tokenURI, string memory _symbol, uint256 _endValidityTime, string memory _key) external returns (uint256) {
         owners[_owner].tokens[tokenIdCounter] = true;
         owners[_owner].tokensNbr = owners[_owner].tokensNbr.add(1);
         owners[_owner].tokensId.push(tokenIdCounter);
@@ -103,17 +104,27 @@ contract Deemos {
         tokens[tokenIdCounter].isValid = true;
         tokens[tokenIdCounter].id = tokenIdCounter;
         tokens[tokenIdCounter].owner = _owner;
+        tokens[tokenIdCounter].key = _key;
         tokenIdCounter = tokenIdCounter.add(1);
         return tokenIdCounter.sub(1);
     }
 
+    /// @notice Compare two strings
+    /// @param a The first string
+    /// @param b The second string
+    /// @return Return a boolean of the expression (a == b)
+    function compareStrings(string memory a, string memory b) private pure returns (bool) {
+        return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))));
+    }
+
     /// @notice Unvalid a token
     /// @param _tokenId Identifier of the token
-    function unvalidToken(uint256 _tokenId) external ownerOnly returns (bool) {
-        if (_tokenId > tokenIdCounter || tokens[_tokenId].isValid == false)
-            return false;
-        tokens[_tokenId].isValid = false;
-        return true;
+    function unvalidToken(uint256 _tokenId, string memory _key) external ownerOnly returns (bool) {
+        if (_tokenId <= tokenIdCounter && tokens[_tokenId].isValid == true && compareStrings(tokens[_tokenId].key, _key)) {
+            tokens[_tokenId].isValid = false;
+            return true;
+        }    
+        return false;
     }
 
 }
