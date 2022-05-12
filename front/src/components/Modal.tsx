@@ -28,14 +28,13 @@ const Popup = ({ isOpen, onClose, title, children, CTA }: PopupProps): JSX.Eleme
 		<ModalOverlay />
 		<ModalContent w="75%">
 			<ModalHeader>
-				<HStack w="100%">
+				<HStack w="100%" p="8px">
 					<VStack w="100%">
 						<Text
 							fontSize={{ base: '16px', '3xs': '16px', xs: '22px' }}
 							fontWeight="600"
 							textAlign="center"
-							bgGradient={`linear-gradient(90deg, ${colors.blue[700]} 0%, ${colors.red[700]} 100%)`}
-							bgClip="text"
+							color="#FFEBEB"
 						>
 							{title}
 						</Text>

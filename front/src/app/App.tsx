@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 import { Center, Spinner } from '@chakra-ui/react';
 
@@ -32,7 +33,9 @@ const App = (): JSX.Element => {
 	return (
 		<>
 			<AuthContext.Provider value={auth}>
-				<Routes />
+				<BrowserRouter>
+					<Routes />
+				</BrowserRouter>
 			</AuthContext.Provider>
 		</>
 	);

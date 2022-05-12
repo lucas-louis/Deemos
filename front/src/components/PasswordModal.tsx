@@ -1,13 +1,13 @@
 import { ChangeEvent, useState } from 'react';
 
-import { Box, Button, Input, InputGroup, InputRightElement, Text, useToast, VStack } from '@chakra-ui/react';
+import { Box, Button, Input, InputGroup, InputRightElement, Text, VStack } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 import { useAuthContext } from 'contexts/auth';
 
 import Modal from 'components/Modal';
 
-import { ResponseMessage, Token } from 'types/types';
+import { Token } from 'types/types';
 
 import revokeCertificate from 'utils/revokeCertificate';
 import encryptData from 'utils/encryptData';
@@ -24,19 +24,8 @@ const PasswordModal = ({ isOpen, onClose, token }: PasswordModalProps): JSX.Elem
 	const [password, setPassword] = useState('');
 	const [show, setShow] = useState(false);
 	const auth = useAuthContext();
-	const toast = useToast();
 
-	// TODO: add encryption for password
 	const handleClick = () => setShow(!show);
-
-	const printToast = (responseMessage: ResponseMessage): void => {
-		toast({
-			title: responseMessage.message,
-			status: responseMessage.success ? 'success' : 'error',
-			duration: 2000,
-			isClosable: true,
-		});
-	};
 
 	return (
 		<Modal
@@ -49,7 +38,7 @@ const PasswordModal = ({ isOpen, onClose, token }: PasswordModalProps): JSX.Elem
 					w="100%"
 					mb="16px"
 					onClick={async () => {
-						printToast(await revokeCertificate(token, encryptData({ auth, data: password })));
+						await revokeCertificate(token, encryptData({ auth, data: password }));
 						onClose();
 					}}
 				>
