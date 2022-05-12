@@ -10,6 +10,7 @@ import shadows from './foundations/shadows';
 import Button from './components/button';
 import Link from './components/link';
 import Text from './components/text';
+import Modal from './components/modal';
 
 const breakpoints = createBreakpoints({
 	xs: '320px',
@@ -33,6 +34,7 @@ const overrides = {
 		Button,
 		Link,
 		Text,
+		Modal,
 	},
 };
 
