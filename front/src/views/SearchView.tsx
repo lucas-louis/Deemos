@@ -29,16 +29,7 @@ const SearchView = (): JSX.Element => {
 
 	return (
 		<HStack h="100vh" w="100%" spacing="64px">
-			<MotionVStack
-				initial={{ opacity: 0 }}
-				transition={{ duration: 0.5, delay: 0.5 }}
-				animate={{ opacity: 1 }}
-				exit={{ opacity: 0, transition: { delay: 0.3 } }}
-				spacing="32px"
-				bg="rgba(0, 0, 255, 0.1)"
-				p="32px"
-				borderRadius="32px"
-			>
+			<VStack spacing="32px" bg="rgba(0, 0, 255, 0.1)" p="32px" borderRadius="32px">
 				<VStack spacing="16px">
 					<Input
 						color="#FFEBEB"
@@ -65,7 +56,7 @@ const SearchView = (): JSX.Element => {
 				>
 					Search
 				</Button>
-			</MotionVStack>
+			</VStack>
 			<MotionVStack
 				initial={{ opacity: 0 }}
 				transition={{ duration: 0.5, delay: 0.7 }}
