@@ -12,71 +12,59 @@ import getCertificates from 'utils/getCertificates';
 import { useAuthContext } from 'contexts/auth';
 import colors from 'theme/foundations/colors';
 
+import { motion } from 'framer-motion';
+import TokenCards from '../components/TokenCards';
+
 const DashboardView = (): JSX.Element => {
-	const [certificates, setCertificates] = useState<Token[]>([]);
-	const [index, setIndex] = useState<number>(0);
 	const {
 		isOpen: isOpenCertificateModal,
 		onClose: onCloseCertificateModal,
 		onOpen: onOpenCertificateModal,
 	} = useDisclosure();
-	const address = useAuthContext().accountAddress;
-	const toast = useToast();
-
-	useEffect(() => {
-		(async () => {
-			getCertificates({ address, certificates, setCertificates }).then((res) => printToast(res));
-		})();
-	}, []);
-
-	const previousIndex = () => {
-		if (index - 1 < 0) {
-			setIndex(certificates.length - 1);
-		} else {
-			setIndex(index - 1);
-		}
-	};
-
-	const nextIndex = () => {
-		if (index + 1 > certificates.length - 1) {
-			setIndex(0);
-		} else {
-			setIndex(index + 1);
-		}
-	};
-
-	const printToast = (responseMessage: ResponseMessage): void => {
-		toast({
-			title: responseMessage.message,
-			status: responseMessage.success ? 'success' : 'error',
-			duration: 2000,
-			isClosable: true,
-		});
-	};
+	const MotionButton = motion(Button);
+	const MotionVStack = motion(VStack);
+	const MotionDivider = motion(Divider);
 
 	return (
 		<VStack w="100%" h="100%" spacing="64px" pt="64px">
 			<VStack w="50%" spacing="16px">
-				<Button variant="inline" w="50%" cursor="pointer" onClick={onOpenCertificateModal}>
-					Add Certificate
-				</Button>
-				<Divider w="75%" />
-				<TokenCard token={certificates[index]} displayRevoke />
-			</VStack>
-			<HStack>
-				<Button
-					w="128px"
-					border={`3px solid ${colors.blue[700]}`}
-					bg="transparent"
-					color="#FFEBEB"
-					onClick={previousIndex}
+				<MotionButton
+					initial={{ opacity: 0, y: -50 }}
+					transition={{ duration: 0.5, delay: 1 }}
+					animate={{ opacity: 1, y: 0 }}
+					exit={{ opacity: 0, y: -50, transition: { delay: 0.3 } }}
+					variant="inline"
+					w="50%"
+					cursor="pointer"
+					onClick={onOpenCertificateModal}
 				>
-					Prev
-				</Button>
-				<Button variant="inline" w="128px" onClick={nextIndex}>
-					Next
-				</Button>
-			</HStack>
+					Add Certificate
+				</MotionButton>
+				<MotionDivider
+					initial={{ opacity: 0, y: -50 }}
+					transition={{ duration: 0.5, delay: 1 }}
+					animate={{ opacity: 1, y: 0 }}
+					exit={{ opacity: 0, transition: { delay: 0.3 } }}
+					w="75%"
+				/>
+				<MotionVStack
+					initial={{ opacity: 0 }}
+					transition={{ duration: 0.5, delay: 0.5 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0, transition: { delay: 0.3 } }}
+					w="100%"
+					px="32px"
+					py="16px"
+					ml="128px"
+					borderRadius="32px"
+					bg="rgba(0, 0, 255, 0.1)"
+					textAlign="center"
+					mr="64px"
+				>
+					<TokenCards />
+				</MotionVStack>
+			</VStack>
+
 			<AddCertificateModal isOpen={isOpenCertificateModal} onClose={onCloseCertificateModal} />
 		</VStack>
 	);

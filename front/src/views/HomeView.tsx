@@ -6,10 +6,14 @@ import { useHistory } from 'react-router-dom';
 
 import { useAuthContext } from 'contexts/auth';
 
+import { motion } from 'framer-motion';
+
 const HomeView = (): JSX.Element => {
 	const auth = useAuthContext();
 	const history = useHistory();
 	const toast = useToast();
+
+	const MotionButton = motion(Button);
 
 	const initWeb3 = async () => {
 		let web3Provider;
@@ -53,10 +57,24 @@ const HomeView = (): JSX.Element => {
 
 	return (
 		<>
-			<Button variant="inline" w="100%" onClick={initWeb3} cursor="pointer" mb="64px">
+			<MotionButton
+				initial={{ opacity: 0 }}
+				transition={{ duration: 0.3, delay: 0.1 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 0, transition: { delay: 0.3 } }}
+				variant="inline"
+				w="100%"
+				onClick={initWeb3}
+				cursor="pointer"
+				mb="64px"
+			>
 				Log in with MetaMask
-			</Button>
-			<Button
+			</MotionButton>
+			<MotionButton
+				initial={{ opacity: 0 }}
+				transition={{ duration: 0.3, delay: 0.1 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 0, transition: { delay: 0.3 } }}
 				variant="inline"
 				w="100%"
 				onClick={() => {
@@ -65,7 +83,7 @@ const HomeView = (): JSX.Element => {
 				cursor="pointer"
 			>
 				Search a certificate
-			</Button>
+			</MotionButton>
 		</>
 	);
 };

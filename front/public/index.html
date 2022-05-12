@@ -41,20 +41,24 @@
 <style>
   @keyframes change {
     0% {
-      background-position: 0 50%;
+      background-position: 5% 5%;
+    }
+    30% {
+      background-position: 20% 80%;
     }
     50% {
-      background-position: 100% 50%;
+      background-position: 90% 30%;
     }
     100% {
-      background-position: 0 50%;
+      background-position: 5% 5%;
     }
   }
 
   .bodyClass {
-      background: linear-gradient(-135deg, #ABD9D4, #072988, #A525CC);
-      background-size: 400% 400%;
-      animation: change 20s ease infinite;
+      /*background: linear-gradient(-135deg, #ABD9D4, #072988, #A525CC);*/
+      background-image: url("./bg.png");
+      /*background-size: 150%, 150%;*/
+      animation: change 30s ease infinite;
       -ms-overflow-style: none;  /* IE and Edge */
       scrollbar-width: none;  /* Firefox */
   }
