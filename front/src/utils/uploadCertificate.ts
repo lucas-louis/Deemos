@@ -16,19 +16,18 @@ type UploadCertificateProps = {
 	birthDate: string;
 	birthPlace: string;
 	expiryDate: string;
+	certificateType: string;
 	auth: Auth;
+	key: string;
 };
 
 const uploadCertificate = async ({
-	file,
-	lastName,
-	firstName,
-	sex,
 	nationality,
 	birthDate,
-	birthPlace,
 	expiryDate,
+	certificateType,
 	auth,
+	key,
 }: UploadCertificateProps): Promise<ResponseMessage> => {
 	try {
 		if (auth.account) {
@@ -36,6 +35,7 @@ const uploadCertificate = async ({
 				age: birthDate,
 				nationality,
 				expirationTime: expiryDate,
+				type: certificateType,
 			};
 			const newFile = new File([JSON.stringify(data)], 'metadata.json');
 			const CID = await uploadFile(auth.account.currentProvider, newFile);
@@ -43,7 +43,7 @@ const uploadCertificate = async ({
 			//	`${REACT_APP_BACKEND}/api/identity?wallet_address=${auth.accountAddress}&tokenUri=${REACT_APP_BASE_URI}${CID}&expiration=${expiryDate}`,
 			// );
 			// console.dir(result.data);
-			await starton.createToken(auth.accountAddress, `${REACT_APP_BASE_URI}${CID}`, expiryDate);
+			await starton.createToken(auth.accountAddress, `${REACT_APP_BASE_URI}${CID}`, expiryDate, key);
 			return { success: true, message: 'Certificat added' };
 		}
 		return { success: false, message: 'Bad account' };

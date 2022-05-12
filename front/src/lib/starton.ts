@@ -21,7 +21,8 @@ const customAxios = axios.create({
 	baseURL: REACT_APP_STARTON_BASE_URL,
 });
 
-const req = (func: string, param: any[], address = '') => {
+// eslint-disable-next-line
+const req = (func: string, param: any[]) => {
 	const modifyingFunctions = ['createToken', 'unvalidToken'];
 	if (!modifyingFunctions.find((f) => f === func)) {
 		return customAxios.post(`${REACT_APP_STARTON_CONTRACT_URI}/read`, {
@@ -51,16 +52,20 @@ const pinCid = async (cid: string): Promise<boolean> => {
 };
 
 const starton = {
-	createToken: async (address: string, tokenUri: string, expiration: string): Promise<number> => {
+	createToken: async (address: string, tokenUri: string, expiration: string, key: string): Promise<number> => {
 		const name = 'DEEMOS_ID';
-		const description = 'certifies your date of birth and nationality';
+		const description = 'Certifies your date of birth and nationality';
 		const symbol = 'DEE';
 
-		const res: AxiosResponse = await req(
-			'createToken',
-			[address, name, description, tokenUri, symbol, Date.parse(expiration).toString(10)],
+		const res: AxiosResponse = await req('createToken', [
 			address,
-		);
+			name,
+			description,
+			tokenUri,
+			symbol,
+			(new Date(expiration).getTime() / 1000).toString(10),
+			key,
+		]);
 		pinCid(uriToCid(tokenUri));
 		return res.data.response;
 	},
@@ -107,8 +112,8 @@ const starton = {
 		return res.data.response.map((id: GetAllTokensRes) => parseInt(id._hex, 16));
 	},
 
-	unvalidToken: async (id: number, address: string): Promise<boolean> => {
-		const res: AxiosResponse = await req('unvalidToken', [id], address);
+	unvalidToken: async (id: number, key: string): Promise<boolean> => {
+		const res: AxiosResponse = await req('unvalidToken', [id, key]);
 		return res.data.response as boolean;
 	},
 };

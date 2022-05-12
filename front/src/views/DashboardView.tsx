@@ -10,6 +10,7 @@ import AddCertificateModal from 'components/AddCertificateModal';
 import getCertificates from 'utils/getCertificates';
 
 import { useAuthContext } from 'contexts/auth';
+import colors from 'theme/foundations/colors';
 
 const DashboardView = (): JSX.Element => {
 	const [certificates, setCertificates] = useState<Token[]>([]);
@@ -54,26 +55,30 @@ const DashboardView = (): JSX.Element => {
 	};
 
 	return (
-		<HStack h="100vh" w="100%">
-			<VStack w="100%" h="50%" spacing="64px">
-				<VStack w="50%" spacing="16px">
-					<Button variant="inline" w="50%" cursor="pointer" onClick={onOpenCertificateModal}>
-						Add Certificate
-					</Button>
-					<Divider w="75%" />
-					<TokenCard token={certificates[index]} />
-				</VStack>
-				<HStack pb="192px">
-					<Button variant="reverseInline" onClick={previousIndex}>
-						Prev
-					</Button>
-					<Button variant="inline" onClick={nextIndex}>
-						Next
-					</Button>
-				</HStack>
+		<VStack w="100%" h="100%" spacing="64px" pt="64px">
+			<VStack w="50%" spacing="16px">
+				<Button variant="inline" w="50%" cursor="pointer" onClick={onOpenCertificateModal}>
+					Add Certificate
+				</Button>
+				<Divider w="75%" />
+				<TokenCard token={certificates[index]} displayRevoke />
 			</VStack>
+			<HStack>
+				<Button
+					w="128px"
+					border={`3px solid ${colors.blue[700]}`}
+					bg="transparent"
+					color="#FFEBEB"
+					onClick={previousIndex}
+				>
+					Prev
+				</Button>
+				<Button variant="inline" w="128px" onClick={nextIndex}>
+					Next
+				</Button>
+			</HStack>
 			<AddCertificateModal isOpen={isOpenCertificateModal} onClose={onCloseCertificateModal} />
-		</HStack>
+		</VStack>
 	);
 };
 

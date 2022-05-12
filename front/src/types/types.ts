@@ -18,4 +18,5 @@ export type GetContentTokenURIResponse = {
 	age: string;
 	nationality: string;
 	expirationTime: string;
+	type: string;
 };

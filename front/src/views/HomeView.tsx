@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 
-import { Button } from '@chakra-ui/react';
+import { Button, useToast } from '@chakra-ui/react';
 
 import { useHistory } from 'react-router-dom';
 
@@ -9,25 +9,37 @@ import { useAuthContext } from 'contexts/auth';
 const HomeView = (): JSX.Element => {
 	const auth = useAuthContext();
 	const history = useHistory();
+	const toast = useToast();
 
 	const initWeb3 = async () => {
 		let web3Provider;
+		// eslint-disable-next-line
 		if ((window as any).ethereum) {
+			// eslint-disable-next-line
 			web3Provider = (window as any).ethereum;
 			try {
 				// Request account access
+				// eslint-disable-next-line
 				await (window as any).ethereum.request({ method: 'eth_requestAccounts' });
 			} catch (error) {
 				// User denied account access...
 				console.error('User denied account access');
 				web3Provider = undefined;
+				toast({
+					title: 'User denied account access',
+					status: 'error',
+					duration: 2500,
+					isClosable: true,
+				});
 			}
 		}
-		// Legacy dapp browsers...
+		// Legacy dApp browsers...
+		// eslint-disable-next-line
 		else if ((window as any).web3) {
+			// eslint-disable-next-line
 			web3Provider = (window as any).web3.currentProvider;
 		}
-		// If no injected web3 instance is detected, fall back to Ganache
+		// If not injected web3 instance is detected, fall back to Ganache
 		else {
 			web3Provider = new Web3.providers.HttpProvider('http://localhost:7545');
 		}

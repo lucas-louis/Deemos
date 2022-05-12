@@ -21,7 +21,7 @@ const getCertificates = async ({
 		const req = tokens.map((id: number) => starton.getTokenInfos(id));
 		Promise.all(req).then((arr) => setCertificates(arr));
 		console.dir(certificates);
-		return { success: true, message: 'Certificate loaded' };
+		return { success: true, message: 'Certificates loaded' };
 	} catch (error) {
 		console.error(error);
 		return { success: false, message: 'An error occured' };
