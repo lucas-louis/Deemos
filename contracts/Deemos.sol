@@ -81,7 +81,8 @@ contract Deemos {
     /// @return The info of the token
     function getTokenInfos(uint256 _tokenId) external view returns (string memory, string memory, string memory, string memory, uint256, bool, uint256, address) {
         Token memory tempToken = tokens[_tokenId];
-        return (tempToken.name, tempToken.description, tempToken.symbol, tempToken.tokenURI, tempToken.endValidityTime, tempToken.isValid, tempToken.id, tempToken.owner);
+        bool validity = tokens[_tokenId].isValid && tokens[_tokenId].endValidityTime > block.timestamp;
+        return (tempToken.name, tempToken.description, tempToken.symbol, tempToken.tokenURI, tempToken.endValidityTime, validity, tempToken.id, tempToken.owner);
     }
 
     /// @notice Create a token with the given informations to the given owner
