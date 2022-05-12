@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link, Route, RouteProps, useHistory } from 'react-router-dom';
 
-import { Center, HStack, Spinner, Text, VStack } from '@chakra-ui/react';
+import { Center, HStack, Spinner, Text, VStack, Image } from '@chakra-ui/react';
 
 import { useAuthContext } from 'contexts/auth';
 
@@ -16,6 +16,7 @@ const PrivateRoute = ({ children, ...rest }: PrivateRouteProps): JSX.Element => 
 	const history = useHistory();
 
 	const MotionText = motion(Text);
+	const MotionImage = motion(Image);
 
 	useEffect(() => {
 		if (!auth || !auth.account) history.push('/');
@@ -33,21 +34,7 @@ const PrivateRoute = ({ children, ...rest }: PrivateRouteProps): JSX.Element => 
 			<HStack h="100vh">
 				<VStack spacing="56px" w="50%">
 					<VStack spacing="16px">
-						<Link to="/">
-							<MotionText
-								initial={{ opacity: 0 }}
-								transition={{ duration: 0.5, delay: 0.3 }}
-								animate={{ opacity: 1 }}
-								exit={{ opacity: 0, transition: { delay: 0.3 } }}
-								fontSize={{ base: '32px', md: '56px', lg: '64px' }}
-								fontWeight="extrabold"
-								color="#FFEBEB"
-								id="title"
-								textAlign="center"
-							>
-								Deemos
-							</MotionText>
-						</Link>
+						<Image src="https://raw.githubusercontent.com/lucas-louis/Deemos/5abfea3b46d07a1dcff21bed9262dd1a6268f849/front/public/deemos-white-logo.svg" />
 						<MotionText
 							initial={{ opacity: 0 }}
 							transition={{ duration: 0.5, delay: 0.3 }}
