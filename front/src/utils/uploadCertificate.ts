@@ -5,7 +5,7 @@ import uploadFile from 'utils/uploadFile';
 
 import { ResponseMessage } from 'types/types';
 
-import { REACT_APP_BASE_URI } from '../config/config';
+import { REACT_APP_BASE_URI } from 'config/config';
 
 type UploadCertificateProps = {
 	file: File | undefined;

@@ -1,19 +1,9 @@
-import { useEffect, useState } from 'react';
+import { VStack, Button, Divider, useDisclosure } from '@chakra-ui/react';
 
-import { VStack, Button, HStack, Divider, useDisclosure, useToast } from '@chakra-ui/react';
-
-import { ResponseMessage, Token } from 'types/types';
-
-import TokenCard from 'components/TokenCard';
 import AddCertificateModal from 'components/AddCertificateModal';
-
-import getCertificates from 'utils/getCertificates';
-
-import { useAuthContext } from 'contexts/auth';
-import colors from 'theme/foundations/colors';
+import TokenCards from 'components/TokenCards';
 
 import { motion } from 'framer-motion';
-import TokenCards from '../components/TokenCards';
 
 const DashboardView = (): JSX.Element => {
 	const {

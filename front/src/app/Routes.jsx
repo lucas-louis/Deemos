@@ -9,6 +9,7 @@ import HomeRoute from './HomeRoute';
 import PrivateRoute from './PrivateRoute';
 import SearchRoute from './SearchRoute';
 
+// eslint-disable-next-line
 const Routes = () => {
 	const location = useLocation();
 

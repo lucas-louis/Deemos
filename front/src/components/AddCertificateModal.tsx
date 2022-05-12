@@ -22,14 +22,14 @@ import Modal from 'components/Modal';
 
 import uploadCertificate from 'utils/uploadCertificate';
 import clearCertificateInfos from 'utils/clearCertificateInfos';
+import encryptData from 'utils/encryptData';
+import checkCertificateInfos from 'utils/checkCertificateInfos';
 
 import { useAuthContext } from 'contexts/auth';
 
 import { ResponseMessage } from 'types/types';
 
 import colors from 'theme/foundations/colors';
-import encryptData from '../utils/encryptData';
-import checkCertificateInfos from '../utils/checkCertificateInfos';
 
 type AddCertificateModalProps = {
 	isOpen: boolean;

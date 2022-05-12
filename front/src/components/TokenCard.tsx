@@ -11,7 +11,7 @@ import { GetContentTokenURIResponse, Token } from 'types/types';
 
 import { motion } from 'framer-motion';
 
-import PasswordModal from './PasswordModal';
+import PasswordModal from 'components/PasswordModal';
 
 type TokenCardProps = {
 	token: Token | undefined;

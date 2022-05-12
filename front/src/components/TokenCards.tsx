@@ -1,11 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Button, HStack, useToast, VStack } from '@chakra-ui/react';
+
+import { Button, HStack, useToast } from '@chakra-ui/react';
+
 import { motion } from 'framer-motion';
-import TokenCard from './TokenCard';
-import getCertificates from '../utils/getCertificates';
-import { useAuthContext } from '../contexts/auth';
-import { ResponseMessage, Token } from '../types/types';
-import colors from '../theme/foundations/colors';
+
+import TokenCard from 'components/TokenCard';
+
+import getCertificates from 'utils/getCertificates';
+
+import { useAuthContext } from 'contexts/auth';
+
+import { ResponseMessage, Token } from 'types/types';
+
+import colors from 'theme/foundations/colors';
 
 const TokenCards = (): JSX.Element => {
 	const [certificates, setCertificates] = useState<Token[]>([]);
@@ -14,7 +21,6 @@ const TokenCards = (): JSX.Element => {
 	const toast = useToast();
 
 	const MotionButton = motion(Button);
-	const MotionVStack = motion(VStack);
 
 	const previousIndex = () => {
 		if (index - 1 < 0) {

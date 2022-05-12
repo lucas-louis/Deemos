@@ -6,6 +6,7 @@ import { Center, Spinner } from '@chakra-ui/react';
 import Routes from 'app/Routes';
 
 import AuthContext from 'contexts/auth';
+
 import Auth from 'lib/auth';
 
 const App = (): JSX.Element => {

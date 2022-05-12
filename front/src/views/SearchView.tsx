@@ -7,6 +7,7 @@ import { ResponseMessage, Token } from 'types/types';
 import TokenCard from 'components/TokenCard';
 
 import searchCertificate from 'utils/searchCertificate';
+
 import { motion } from 'framer-motion';
 
 const SearchView = (): JSX.Element => {
@@ -28,7 +29,16 @@ const SearchView = (): JSX.Element => {
 
 	return (
 		<HStack h="100vh" w="100%" spacing="64px">
-			<VStack spacing="32px" bg="rgba(0, 0, 255, 0.1)" p="32px" borderRadius="32px">
+			<MotionVStack
+				initial={{ opacity: 0 }}
+				transition={{ duration: 0.5, delay: 0.5 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 0, transition: { delay: 0.3 } }}
+				spacing="32px"
+				bg="rgba(0, 0, 255, 0.1)"
+				p="32px"
+				borderRadius="32px"
+			>
 				<VStack spacing="16px">
 					<Input
 						color="#FFEBEB"
@@ -55,10 +65,10 @@ const SearchView = (): JSX.Element => {
 				>
 					Search
 				</Button>
-			</VStack>
+			</MotionVStack>
 			<MotionVStack
 				initial={{ opacity: 0 }}
-				transition={{ duration: 0.5, delay: 0.5 }}
+				transition={{ duration: 0.5, delay: 0.7 }}
 				animate={{ opacity: 1 }}
 				exit={{ opacity: 0, transition: { delay: 0.3 } }}
 				w="40%"

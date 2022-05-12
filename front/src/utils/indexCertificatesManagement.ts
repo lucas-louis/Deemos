@@ -6,7 +6,7 @@ export const previousIndex = (
 	index: number,
 	certificates: Token[],
 	setIndex: React.Dispatch<React.SetStateAction<number>>,
-) => {
+): void => {
 	if (index - 1 < 0) {
 		setIndex(certificates.length - 1);
 	} else {
@@ -18,7 +18,7 @@ export const nextIndex = (
 	index: number,
 	certificates: Token[],
 	setIndex: React.Dispatch<React.SetStateAction<number>>,
-) => {
+): void => {
 	if (index + 1 > certificates.length - 1) {
 		setIndex(0);
 	} else {
