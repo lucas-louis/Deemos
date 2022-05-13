@@ -55,7 +55,7 @@ const PrivateRoute = ({ children, ...rest }: PrivateRouteProps): JSX.Element => 
 							textAlign="center"
 							color="#FFEBEB"
 						>
-							The first decentralized certification platform
+							The first open source decentralized certification platform
 						</MotionText>
 					</VStack>
 				</VStack>
