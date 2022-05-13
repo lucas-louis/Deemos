@@ -18,7 +18,7 @@ With the open-source code you can be sure that Deemos does not keep any informat
 
 ## Installation
 
-No installation needed. It is already running [deemoos](http://deemos.tech/)
+No installation needed. It is already running [deemoos](https://deemos.vercel.app/)
 
 ## Team & Feedbacks
 
@@ -27,6 +27,9 @@ This hackaton was a very good discovery of this technology.
 
 ## How to Use
 
+Just go to [deemos](https:://deemos.vercel.app)
 
-| [<img src="https://github.com/lucas-louis.png?size=85" width=85><br><sub>Lucas Louis</sub>](https://github.com/lucas-louis) | [<img src="https://github.com/AbdelkarimBENGRINE.png?size=85" width=85><br><sub>Abdelkarim Bengrine</sub>](https://github.com/AbdelkarimBENGRINE) | [<img src="https://github.com/AmozPay.png?size=85" width=85><br><sub>Amoz Pay</sub>](https://github.com/AmozPay) | 
+## Our team
+
+| [<img src="https://github.com/AbdelkarimBENGRINE.png?size=85" width=85><br><sub>Abdelkarim Bengrine</sub>](https://github.com/AbdelkarimBENGRINE) | [<img src="https://github.com/AmozPay.png?size=85" width=85><br><sub>Amoz Pay</sub>](https://github.com/AmozPay) | [<img src="https://github.com/lucas-louis.png?size=85" width=85><br><sub>Lucas Louis</sub>](https://github.com/lucas-louis) |
 | :---: | :---: | :---: |
